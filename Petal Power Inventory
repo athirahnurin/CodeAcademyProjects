@@ -1,0 +1,34 @@
+import codecademylib
+import pandas as pd
+
+df = pd.read_csv('inventory.csv')
+staten_island= df.head(10)
+product_request= staten_island['product_description']
+# print(product_request)
+seed_request = df[(df['location'] =='Brooklyn') & (df['product_type'] =='seeds')]
+# print(seed_request)
+
+df['in_stock']=df.apply(lambda row: 'True' if row.quantity > 0 else 'False', axis =1)
+
+df['total_value'] = df.price* df.quantity
+# print(df)
+
+combine_lambda = lambda row: \
+    '{} - {}'.format(row.product_type,
+                     row.product_description)
+
+df['full_description']=df.apply(combine_lambda, axis =1)
+
+print(df)
+
+
+
+
+
+
+
+
+
+
+
+
